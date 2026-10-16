@@ -1,0 +1,574 @@
+<!doctype html>
+<html lang="tr">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>SENKI BIO · Kılavuz</title>
+<meta name="description" content="SENKI BIO bio sayfası için tek dosyalık, çevrimdışı çalışan kullanım kılavuzu.">
+<meta name="theme-color" content="#070604">
+<link rel="icon" type="image/svg+xml" href="assets/favicon.svg">
+<style>
+:root{
+  --bg:#070604; --bg2:#0f0c08; --card:rgba(22,18,12,.72); --line:rgba(230,179,77,.18);
+  --gold:#e6b34d; --gold2:#f6d68b; --text:#ece3d0; --muted:#a1916f; --ok:#8fd694; --warn:#f0a35e; --info:#7fb7e6;
+  --serif:Georgia,"Times New Roman",serif; --sans:system-ui,-apple-system,"Segoe UI",Roboto,sans-serif; --mono:ui-monospace,SFMono-Regular,Consolas,"Liberation Mono",monospace;
+  --side:272px;
+}
+@media (prefers-color-scheme: light){ :root:not([data-theme="dark"]){ --bg:#070604; } } /* kılavuz her zaman koyu: bio ile aynı dil */
+*{box-sizing:border-box}
+html{scroll-behavior:smooth;-webkit-text-size-adjust:100%}
+body{margin:0;background:var(--bg);color:var(--text);font:16px/1.65 var(--sans);overflow-x:hidden}
+body::before{content:"";position:fixed;inset:0;z-index:-1;pointer-events:none;
+  background:radial-gradient(900px 600px at 85% -10%,rgba(230,179,77,.14),transparent 60%),radial-gradient(700px 500px at -10% 110%,rgba(230,179,77,.10),transparent 60%),var(--bg)}
+a{color:var(--gold2);text-decoration:none;border-bottom:1px solid rgba(246,214,139,.25)}
+a:hover{border-bottom-color:var(--gold2)}
+code,kbd{font-family:var(--mono);font-size:.92em}
+code{background:rgba(230,179,77,.10);padding:.08em .35em;border-radius:5px;color:var(--gold2)}
+kbd{border:1px solid var(--line);border-bottom-width:2px;border-radius:6px;padding:.05em .45em;background:rgba(255,255,255,.03)}
+section[hidden]{display:none !important}
+
+/* ── layout ── */
+.shell{display:grid;grid-template-columns:var(--side) 1fr;min-height:100vh}
+.side{position:sticky;top:0;height:100vh;overflow:auto;padding:26px 18px 30px;border-right:1px solid var(--line);
+  background:linear-gradient(180deg,rgba(15,12,8,.92),rgba(7,6,4,.92));backdrop-filter:blur(10px)}
+.brand{display:flex;align-items:center;gap:12px;margin:0 6px 18px}
+.brand .mark{width:38px;height:38px;border-radius:50%;border:2px solid var(--gold);display:grid;place-items:center;
+  box-shadow:0 0 22px rgba(230,179,77,.35);color:var(--gold);font:600 14px var(--serif)}
+.brand b{display:block;font:600 17px var(--serif);letter-spacing:.14em;color:var(--gold2)}
+.brand small{color:var(--muted);letter-spacing:.2em;font-size:10px;text-transform:uppercase}
+#guide-search{width:100%;padding:10px 12px;border-radius:10px;border:1px solid var(--line);background:rgba(255,255,255,.03);color:var(--text);font:14px var(--sans);outline:none}
+#guide-search:focus{border-color:var(--gold);box-shadow:0 0 0 3px rgba(230,179,77,.15)}
+.results{list-style:none;margin:8px 0 0;padding:0;display:grid;gap:4px}
+.results:empty{display:none}
+.results a{display:block;padding:8px 10px;border-radius:9px;border:1px solid transparent;color:var(--text);font-size:13px}
+.results a:hover,.results a:focus-visible{background:rgba(230,179,77,.08);border-color:var(--line);outline:none}
+.results small{display:block;color:var(--muted);font-size:11.5px}
+.nav-group{margin:18px 0 6px;font-size:10.5px;letter-spacing:.22em;text-transform:uppercase;color:var(--muted)}
+.nav a{display:flex;align-items:center;gap:9px;padding:7px 10px;border-radius:9px;color:var(--text);border:1px solid transparent;font-size:14.5px}
+.nav a:hover{background:rgba(230,179,77,.07)}
+.nav a[aria-current="page"]{background:linear-gradient(90deg,rgba(230,179,77,.18),rgba(230,179,77,.04));border-color:var(--line);color:var(--gold2)}
+.nav .n{font:12px var(--mono);color:var(--muted);min-width:22px}
+.progress{margin-top:22px;padding:12px;border:1px solid var(--line);border-radius:12px;background:var(--card)}
+.progress .bar{height:6px;border-radius:99px;background:rgba(255,255,255,.06);overflow:hidden;margin-top:8px}
+.progress .bar i{display:block;height:100%;width:0;background:linear-gradient(90deg,var(--gold),var(--gold2));transition:width .4s ease}
+.progress small{color:var(--muted)}
+
+main{padding:46px clamp(20px,5vw,72px) 80px;min-width:0;max-width:980px}
+.menu-btn{display:none}
+.eyebrow{font:12px var(--mono);letter-spacing:.2em;text-transform:uppercase;color:var(--gold)}
+h1{font:600 clamp(28px,4vw,40px)/1.15 var(--serif);color:var(--gold2);margin:.35em 0 .3em;letter-spacing:.02em}
+h2{font:600 24px/1.25 var(--serif);color:var(--gold2);margin:2.2em 0 .6em;padding-bottom:.35em;border-bottom:1px solid var(--line)}
+h3{font:600 18px var(--serif);color:var(--text);margin:1.6em 0 .4em}
+p,li{color:var(--text)}
+.lead{font-size:18px;color:var(--muted);margin:0 0 1.2em;max-width:70ch}
+section[data-page]{animation:fade .45s ease both}
+@keyframes fade{from{opacity:0;transform:translateY(6px)}to{opacity:1;transform:none}}
+.card{background:var(--card);border:1px solid var(--line);border-radius:16px;padding:18px 20px;margin:14px 0;backdrop-filter:blur(6px);
+  box-shadow:0 10px 40px rgba(0,0,0,.35),inset 0 1px 0 rgba(255,255,255,.03)}
+.grid{display:grid;gap:14px;grid-template-columns:repeat(auto-fit,minmax(220px,1fr))}
+.callout{border-radius:12px;padding:12px 16px;margin:16px 0;border:1px solid;border-left-width:4px;font-size:15px}
+.callout b{display:block;font-size:13px;letter-spacing:.12em;text-transform:uppercase;margin-bottom:2px}
+.callout.tip{border-color:rgba(143,214,148,.35);border-left-color:var(--ok);background:rgba(143,214,148,.06)}
+.callout.tip b{color:var(--ok)}
+.callout.warn{border-color:rgba(240,163,94,.35);border-left-color:var(--warn);background:rgba(240,163,94,.06)}
+.callout.warn b{color:var(--warn)}
+.callout.info{border-color:rgba(127,183,230,.35);border-left-color:var(--info);background:rgba(127,183,230,.06)}
+.callout.info b{color:var(--info)}
+.steps{counter-reset:s;list-style:none;padding:0;margin:14px 0}
+.steps li{counter-increment:s;position:relative;padding:12px 14px 12px 58px;margin:8px 0;border:1px solid var(--line);border-radius:12px;background:rgba(255,255,255,.015)}
+.steps li::before{content:counter(s);position:absolute;left:14px;top:12px;width:30px;height:30px;border-radius:50%;display:grid;place-items:center;
+  font:600 14px var(--serif);color:var(--bg);background:linear-gradient(135deg,var(--gold2),var(--gold));box-shadow:0 0 14px rgba(230,179,77,.4)}
+.codewrap{position:relative;margin:12px 0}
+.codewrap pre{margin:0;padding:14px 16px;padding-right:96px;border-radius:12px;background:#0b0905;border:1px solid var(--line);overflow-x:auto;
+  font:13.5px/1.6 var(--mono);color:#f1e6c8;white-space:pre}
+.copy-btn{position:absolute;top:9px;right:9px;font:12px var(--sans);padding:5px 10px;border-radius:8px;border:1px solid var(--line);
+  background:rgba(230,179,77,.10);color:var(--gold2);cursor:pointer}
+.copy-btn:hover{background:rgba(230,179,77,.2)}
+.copy-btn[data-state="done"]{color:var(--ok);border-color:rgba(143,214,148,.5)}
+.tbl-wrap{overflow-x:auto;border:1px solid var(--line);border-radius:14px;margin:14px 0}
+table{width:100%;border-collapse:collapse;font-size:14.5px;min-width:520px}
+th,td{text-align:left;padding:10px 12px;border-bottom:1px solid var(--line);vertical-align:top}
+th{color:var(--gold);font-weight:600;background:rgba(230,179,77,.06);font-family:var(--serif)}
+tr:last-child td{border-bottom:0}
+.chip{display:inline-flex;align-items:center;gap:6px;padding:3px 10px;border-radius:999px;border:1px solid var(--line);font-size:12.5px;color:var(--gold2);margin:2px 4px 2px 0}
+.checks label{display:flex;gap:10px;align-items:flex-start;padding:9px 12px;border-radius:10px;border:1px solid transparent;cursor:pointer}
+.checks label:hover{background:rgba(230,179,77,.05);border-color:var(--line)}
+.checks input{margin-top:5px;accent-color:var(--gold);width:18px;height:18px}
+.pager{display:flex;justify-content:space-between;gap:12px;margin-top:56px;padding-top:20px;border-top:1px solid var(--line)}
+.pager a{flex:1;max-width:48%;padding:14px 16px;border:1px solid var(--line);border-radius:14px;color:var(--text);background:var(--card);border-bottom:1px solid var(--line)}
+.pager a:hover{border-color:var(--gold)}
+.pager small{display:block;color:var(--muted);font-size:12px;letter-spacing:.12em;text-transform:uppercase}
+.pager a.next{text-align:right;margin-left:auto}
+.styles{display:grid;gap:12px;grid-template-columns:repeat(auto-fill,minmax(230px,1fr))}
+.style{border:1px solid var(--line);border-radius:14px;padding:14px 16px;background:var(--card)}
+.style b{display:block;font:600 16px var(--serif);color:var(--gold2)}
+.style code{display:inline-block;margin-top:6px;font-size:12px}
+.style p{margin:6px 0 0;color:var(--muted);font-size:14px}
+.tag{display:block;font:11px var(--mono);letter-spacing:.1em;text-transform:uppercase;color:var(--muted);margin-bottom:4px}
+.tag.new{color:var(--gold2)}
+.flow{display:flex;flex-wrap:wrap;gap:8px;align-items:center;margin:12px 0}
+.flow span{padding:8px 12px;border-radius:10px;border:1px solid var(--line);background:rgba(255,255,255,.02);font-size:14px}
+.flow i{color:var(--gold);font-style:normal}
+.hero-art{height:6px;border-radius:99px;margin:6px 0 18px;background:linear-gradient(90deg,transparent,var(--gold),var(--gold2),var(--gold),transparent);opacity:.7}
+
+/* ── responsive ── */
+@media (max-width: 900px){
+  .shell{grid-template-columns:1fr}
+  .side{position:fixed;inset:0 auto 0 0;width:min(86vw,320px);z-index:50;transform:translateX(-102%);transition:transform .3s ease;box-shadow:20px 0 60px rgba(0,0,0,.6)}
+  .side.open{transform:none}
+  .menu-btn{display:flex;position:sticky;top:0;z-index:40;align-items:center;gap:10px;width:100%;padding:12px 16px;border:0;border-bottom:1px solid var(--line);
+    background:rgba(7,6,4,.92);backdrop-filter:blur(8px);color:var(--gold2);font:600 15px var(--serif);letter-spacing:.1em;cursor:pointer}
+  .scrim{position:fixed;inset:0;background:rgba(0,0,0,.55);z-index:45;display:none}
+  .scrim.open{display:block}
+  main{padding:26px 18px 60px}
+  .pager a{max-width:none}
+}
+@media (prefers-reduced-motion: reduce){
+  html{scroll-behavior:auto} section[data-page]{animation:none} .side{transition:none} *{transition-duration:.01ms !important}
+}
+@media print{ .side,.menu-btn,.pager,.copy-btn{display:none !important} .shell{display:block} }
+</style>
+</head>
+<body>
+<button class="menu-btn" id="menu-btn" aria-expanded="false" aria-controls="side">☰ <span>KILAVUZ</span></button>
+<div class="scrim" id="scrim"></div>
+<div class="shell">
+  <aside class="side" id="side" aria-label="Kılavuz gezinmesi">
+    <div class="brand">
+      <div class="mark">SB</div>
+      <div><b>SENKI BIO</b><small>kılavuz · v5.2</small></div>
+    </div>
+    <input id="guide-search" type="search" placeholder="Ara… (ör. webp, kilit, Kaydet)" aria-label="Kılavuzda ara" autocomplete="off">
+    <ul class="results" id="guide-results" role="listbox" aria-label="Arama sonuçları"></ul>
+
+    <nav class="nav" aria-label="Sayfalar">
+      <div class="nav-group">Başlangıç</div>
+      <a href="#/baslangic"><span class="n">01</span>Bu nedir?</a>
+      <a href="#/yerel-calistirma"><span class="n">02</span>Bilgisayarda aç</a>
+      <div class="nav-group">Düzenleme</div>
+      <a href="#/editor"><span class="n">03</span>Editörü aç</a>
+      <a href="#/sifirdan"><span class="n">04</span>Sıfırdan başla</a>
+      <a href="#/kaydetme"><span class="n">05</span>Kaydetme kuralı</a>
+      <a href="#/nereden-degisir"><span class="n">06</span>Ne nereden değişir?</a>
+      <a href="#/medya"><span class="n">07</span>Video, ses, görsel</a>
+      <div class="nav-group">Intro</div>
+      <a href="#/intro"><span class="n">08</span>Intro'ya genel bakış</a>
+      <a href="#/intro-tarzlari"><span class="n">09</span>16 tarz</a>
+      <a href="#/intro-video"><span class="n">10</span>Video &amp; animasyonlu intro</a>
+      <div class="nav-group">Yayın &amp; yardım</div>
+      <a href="#/yayinlama"><span class="n">11</span>İnternete yayınla</a>
+      <a href="#/sss"><span class="n">12</span>Sık sorulanlar</a>
+    </nav>
+
+    <div class="progress" aria-live="polite">
+      <small>Kurulum ilerlemesi</small>
+      <div class="bar"><i id="prog-fill"></i></div>
+      <small id="prog-text">0 / 0 adım</small>
+    </div>
+  </aside>
+
+  <main id="main" tabindex="-1">
+
+    <!-- ═════════ 01 ═════════ -->
+    <section data-page="baslangic" id="baslangic">
+      <div class="eyebrow">01 · Başlangıç</div>
+      <h1>Bu nedir?</h1>
+      <div class="hero-art"></div>
+      <p class="lead">Tek sayfalık bir profil kartı (bio-link). Bağlantılarını, ismini ve görünümünü tarayıcıdaki editörden ayarlarsın;
+      tüm ayarlar tek bir dosyaya (<code>config.js</code>) kaydedilir. <b>Kod bilgisi gerekmez.</b></p>
+      <div class="card">
+        <h3>Yapılacaklar</h3>
+        <div class="checks" id="checklist">
+          <label><input type="checkbox" data-check="kur"><span>Dosyaları bir klasöre koydum</span></label>
+          <label><input type="checkbox" data-check="sunucu"><span>Yerel sunucuyu çalıştırdım ve <code>localhost:8000</code>'i açtım</span></label>
+          <label><input type="checkbox" data-check="editor"><span>Editörü açtım (<code>EDIT_MODE = true</code>)</span></label>
+          <label><input type="checkbox" data-check="kaydet"><span>Değişiklikleri kaydedip <code>config.js</code>'i yerine koydum</span></label>
+          <label><input type="checkbox" data-check="yayin"><span>Siteyi yayınladım</span></label>
+        </div>
+      </div>
+      <div class="callout info"><b>Bilgi</b>Bu kılavuz tamamen çevrimdışı çalışır: dış font, CDN veya izleyici yok.</div>
+    </section>
+
+    <!-- ═════════ 02 ═════════ -->
+    <section data-page="yerel-calistirma" id="yerel-calistirma">
+      <div class="eyebrow">02 · Kurulum</div>
+      <h1>Bilgisayarda aç</h1>
+      <p class="lead">Dosyaya çift tıklayarak (<code>file://</code>) açma. Discord kopyalama ve sesler çalışmaz.</p>
+      <ol class="steps">
+        <li>Dosyaları bir klasöre koy (örn. <code>Masaüstü\bio</code>).</li>
+        <li>Klasörün içinde boş bir yere <kbd>Shift</kbd> + sağ tık → <b>"PowerShell penceresini burada aç"</b>.</li>
+        <li>Komutu yaz ve Enter'a bas:
+          <div class="codewrap"><pre><code>python -m http.server 8000</code></pre><button class="copy-btn" type="button">Kopyala</button></div>
+        </li>
+        <li>Tarayıcıda <b>http://localhost:8000</b> adresini aç. "CLICK TO ENTER" perdesi geldiyse hazırsın.</li>
+      </ol>
+      <div class="callout warn"><b>Dikkat</b><code>python</code> tanınmıyorsa python.org'dan kur ve kurulumda <b>"Add to PATH"</b> kutusunu işaretle.</div>
+    </section>
+
+    <!-- ═════════ 03 ═════════ -->
+    <section data-page="editor" id="editor">
+      <div class="eyebrow">03 · Düzenleme</div>
+      <h1>Editörü aç</h1>
+      <ol class="steps">
+        <li><b>index.html</b> dosyasını bir metin editörüyle aç.</li>
+        <li>En üstte şu satırı bul ve <code>false</code> yerine <code>true</code> yaz:
+          <div class="codewrap"><pre><code>window.EDIT_MODE = true;</code></pre><button class="copy-btn" type="button">Kopyala</button></div>
+        </li>
+        <li>Kaydet, sayfayı yenile (<kbd>F5</kbd>). <b>"EDITÖR AÇIK"</b> rozeti belirir; tıkla.</li>
+      </ol>
+      <p>Solda bölüm ikonları var, her bölüm açılır-kapanır başlıklarla. Yaptığın her değişiklik <b>anında</b> sayfaya yansır.
+      Kapatmak için sol üstteki <b>✕</b> veya <kbd>Esc</kbd>.</p>
+      <div class="callout tip"><b>İpucu</b>Editör açıkken sayfa garip görünebilir; bu normal. Yayınlamadan önce <code>EDIT_MODE = false</code> yap.</div>
+    </section>
+
+    <!-- ═════════ 04 ═════════ -->
+    <section data-page="sifirdan" id="sifirdan">
+      <div class="eyebrow">04 · Düzenleme</div>
+      <h1>Sıfırdan başla</h1>
+      <p class="lead">Mevcut içerikleri beğenmiyorsan editörün üst barındaki <b>SIFIR</b> düğmesine bas: boş bir bio gelir.</p>
+      <ol class="steps">
+        <li><b>Kimlik</b> → kullanıcı adı, bio, sayfa başlığı.</li>
+        <li><b>Avatar · Çerçeveler</b> → fotoğraf yolu ve soldan çerçeve.
+          <span class="chip">B = arkada</span><span class="chip">F = öne geçer</span><span class="chip">O = fotoğrafın üstünde</span></li>
+        <li><b>Linkler</b> → <b>"+ Buton ekle"</b> → etiket yaz → tür olarak <i>URL açar</i> seç → adresi yapıştır.
+          Discord için <i>Panoya kopyalar</i> seç ve kullanıcı adını yaz.</li>
+        <li><b>Kaydet</b> → inen <code>config.js</code>'i <code>js</code> klasörüne at (eskisinin üzerine).</li>
+        <li><code>EDIT_MODE</code>'u tekrar <code>false</code> yap. Bitti. ✅</li>
+      </ol>
+    </section>
+
+    <!-- ═════════ 05 ═════════ -->
+    <section data-page="kaydetme" id="kaydetme">
+      <div class="eyebrow">05 · Düzenleme</div>
+      <h1>Kaydetme kuralı</h1>
+      <p class="lead">Bu bölüm en önemli kısım. Editör tarayıcıda çalışır; değişikliklerin kalıcı olması için dosyaya yazılması gerekir.</p>
+      <div class="flow"><span>Editörde düzenle</span><i>→</i><span>Kaydet</span><i>→</i><span>config.js iner</span><i>→</i><span>js klasörüne koy</span><i>→</i><span>F5 ✅</span></div>
+      <div class="callout warn"><b>Önemli</b>Kaydetmeden sayfayı kapatırsan düzenlemeler dosyaya yazılmaz. Editörü açık bırakıp yenilersen tarayıcı hatırlar, ama dosya aynı kalır.</div>
+    </section>
+
+    <!-- ═════════ 06 ═════════ -->
+    <section data-page="nereden-degisir" id="nereden-degisir">
+      <div class="eyebrow">06 · Referans</div>
+      <h1>Ne nereden değişir?</h1>
+      <p class="lead">Aradığını bul, editörde hangi bölümde olduğunu gör.</p>
+      <div class="tbl-wrap">
+        <table>
+          <thead><tr><th>Ne istiyorum?</th><th>Editörde nerede?</th></tr></thead>
+          <tbody>
+            <tr><td>İsim, bio, başlık</td><td>Kimlik</td></tr>
+            <tr><td>Giriş perdesi yazısı / küp</td><td>Kimlik → GİRİŞ PERDESİ</td></tr>
+            <tr><td>Küp boyutu / hızı / rengi</td><td>Kimlik → GİRİŞ PERDESİ (kaydırıcılar)</td></tr>
+            <tr><td>Site simgesi (favicon)</td><td>Kimlik → FAVICON</td></tr>
+            <tr><td>Açılış animasyonu (tarz, video, kilit)</td><td>Kimlik → İNTERAKTİF İNTRO</td></tr>
+            <tr><td>Fotoğraf + çerçevesi</td><td>Avatar · Çerçeveler</td></tr>
+            <tr><td>Rozetler (isim yanındaki ikonlar)</td><td>Rozetler</td></tr>
+            <tr><td>Butonlar / linkler</td><td>Linkler &amp; Aksiyonlar</td></tr>
+            <tr><td>Altın rengi, metin, arka plan, ikon, kart rengi</td><td>Tema &amp; Yazı Tipi</td></tr>
+            <tr><td>Arka plan (video/görsel/toz)</td><td>Arka Plan</td></tr>
+            <tr><td>Kart boyutu, cam efekti</td><td>Kart</td></tr>
+            <tr><td>İleri seviye konum</td><td>Gelişmiş</td></tr>
+            <tr><td>Sekmeler / oyun listesi</td><td>Sekmeler</td></tr>
+            <tr><td>Sağ tık menüsü, menü düğmeleri</td><td>Menüler</td></tr>
+            <tr><td>Fare bölgesi → aksiyon</td><td>Bölgeler</td></tr>
+            <tr><td>Sesler, müzik</td><td>Ses</td></tr>
+          </tbody>
+        </table>
+      </div>
+    </section>
+
+    <!-- ═════════ 07 ═════════ -->
+    <section data-page="medya" id="medya">
+      <div class="eyebrow">07 · Referans</div>
+      <h1>Video, ses, görsel ekleme</h1>
+      <p class="lead">Dosyaları <code>assets</code> klasörüne at, sonra editörde <b>yolunu</b> yaz.</p>
+      <div class="tbl-wrap"><table>
+        <thead><tr><th>Ne</th><th>Dosya</th></tr></thead>
+        <tbody>
+          <tr><td>Arka plan videosu</td><td><code>assets/bg.mp4</code> (varsayılan; arka plan listesinde <code>assets/bg.jpg</code> de var)</td></tr>
+          <tr><td>Avatar</td><td><code>assets/avatar.jpg</code></td></tr>
+          <tr><td>Efekt sesleri</td><td><code>assets/sounds/hover.mp3</code>, <code>click.mp3</code></td></tr>
+          <tr><td>Müzik</td><td>Editörün <b>Ses</b> bölümünden ekle</td></tr>
+          <tr><td>Açılış videosu</td><td>Bkz. <a href="#/intro-video">Video &amp; animasyonlu intro</a></td></tr>
+        </tbody>
+      </table></div>
+      <div class="callout info"><b>Not</b>Eksik dosya sessizce yok sayılır; kırmızı hata çıkmaz.</div>
+    </section>
+
+    <!-- ═════════ 08 ═════════ -->
+    <section data-page="intro" id="intro">
+      <div class="eyebrow">08 · Intro</div>
+      <h1>Intro'ya genel bakış</h1>
+      <p class="lead">Giriş perdesine tıklayınca oynayan açılış. Bir <b>tarz</b> (16 hazır efekt) ya da bir <b>video / animasyonlu görsel</b> seçebilirsin.</p>
+      <div class="flow"><span>CLICK TO ENTER</span><i>→</i><span>Intro (tarz veya video)</span><i>→</i><span>Öğeler belirir</span><i>→</i><span>Site</span></div>
+      <h2>Ayarlar</h2>
+      <div class="tbl-wrap"><table>
+        <thead><tr><th>Ayar</th><th>Ne yapar?</th></tr></thead>
+        <tbody>
+          <tr><td><b>İntro açılış animasyonu</b></td><td>Açık / kapalı.</td></tr>
+          <tr><td><b>Mod</b></td><td><i>Tarz</i> hazır efektleri kullanır. <i>Video</i> seçilirse video kaynakları oynatılır.</td></tr>
+          <tr><td><b>Tarz</b></td><td>16 efekt arasından biri (<a href="#/intro-tarzlari">tüm liste</a>).</td></tr>
+          <tr><td><b>Metinler</b></td><td>Tarz metin gösteriyorsa her satır ayrı yazılır (en fazla 12 satır).</td></tr>
+          <tr><td><b>Element gecikmesi</b></td><td>Öğeler arasındaki süre (30–800 ms).</td></tr>
+          <tr><td><b>Arka plan açılışı</b></td><td>Blur, fade, kare kare, wipe veya yok.</td></tr>
+          <tr><td><b>Yenilemede atla</b></td><td>Intro bir kez oynar; yenilemede atlanır.</td></tr>
+          <tr><td><b>Ses efektleri</b></td><td>Intro sırasında ses (video için de geçerli).</td></tr>
+        </tbody>
+      </table></div>
+      <div class="callout tip"><b>Atlamak</b>Intro sırasında herhangi bir yere tıkla veya <kbd>Esc</kbd>'e bas: anında siteye geçilir.</div>
+      <div class="card">
+        <h3>Test et</h3>
+        <p>Editörde <b>▶ Intro'yu Test Et</b> düğmesi, ayarlarını yenilemeden oynatır.</p>
+      </div>
+    </section>
+
+    <!-- ═════════ 09 ═════════ -->
+    <section data-page="intro-tarzlari" id="intro-tarzlari">
+      <div class="eyebrow">09 · Intro</div>
+      <h1>16 tarz</h1>
+      <p class="lead">Klasik yedi tarz ve v5.2 ile gelen dokuz yeni efekt. Mod <b>Tarz</b> iken editörde "Tarz" listesinden seç.</p>
+      <h2>Klasik</h2>
+      <div class="styles">
+        <div class="style"><span class="tag">klasik</span><b>Önyükleme</b><p>Terminal satırları yazılır, öğeler sırayla belirir.</p><code>boot</code></div>
+        <div class="style"><span class="tag">klasik</span><b>Sinematik</b><p>Harf kutusu açılır, kart bulanıktan netleşir.</p><code>cinematic</code></div>
+        <div class="style"><span class="tag">klasik</span><b>Montaj</b><p>Öğeler yönlü kayarak yerine oturur.</p><code>assembly</code></div>
+        <div class="style"><span class="tag">klasik</span><b>Glitch</b><p>Öğeler bozulup sarsılarak görünür.</p><code>glitch</code></div>
+        <div class="style"><span class="tag">klasik</span><b>Terminal</b><p>Rastgele karakter şelalesi ve çözülme.</p><code>terminal</code></div>
+        <div class="style"><span class="tag">klasik</span><b>Çağırma</b><p>Rün halkaları ve büyü efekti.</p><code>summon</code></div>
+        <div class="style"><span class="tag">klasik</span><b>Minimal</b><p>Sadece yavaş bir solma.</p><code>minimal</code></div>
+      </div>
+      <h2>Yeni (v5.2)</h2>
+      <div class="styles">
+        <div class="style"><span class="tag new">yeni</span><b>Matrix yağmuru</b><p>Düşen karakter sütunları, sonra açılış.</p><code>matrix</code></div>
+        <div class="style"><span class="tag new">yeni</span><b>İris açılışı</b><p>Dairesel bir perde kapanarak sahneyi açar.</p><code>iris</code></div>
+        <div class="style"><span class="tag new">yeni</span><b>Daktilo</b><p>Her satır imleçle yazılır, öğeler karşılar.</p><code>typewriter</code></div>
+        <div class="style"><span class="tag new">yeni</span><b>Tarama çizgisi</b><p>CRT tarzı yatay tarama çizgisi her şeyi açar.</p><code>scanline</code></div>
+        <div class="style"><span class="tag new">yeni</span><b>Parçacık toplama</b><p>Parçacıklar merkeze toplanıp patlar.</p><code>particles</code></div>
+        <div class="style"><span class="tag new">yeni</span><b>Yakınlaşma</b><p>Kart büyük ve bulanık başlar, yerine oturur.</p><code>zoom</code></div>
+        <div class="style"><span class="tag new">yeni</span><b>Neon titreme</b><p>Öğeler neon gibi titreyerek yanar.</p><code>flicker</code></div>
+        <div class="style"><span class="tag new">yeni</span><b>Perde</b><p>İki perde açılır, sahne ortaya çıkar.</p><code>curtains</code></div>
+        <div class="style"><span class="tag new">yeni</span><b>EKG hattı</b><p>Kalp atışı çizgisi çizilir, sonra açılır.</p><code>ekg</code></div>
+      </div>
+    </section>
+
+    <!-- ═════════ 10 ═════════ -->
+    <section data-page="intro-video" id="intro-video-page">
+      <div class="eyebrow">10 · Intro</div>
+      <h1>Video &amp; animasyonlu intro</h1>
+      <p class="lead">Kendi açılış videonu koy. Tarayıcı, listedeki dosyalardan <b>oynatabildiğini</b> seçer; oynatamadığını atlar.</p>
+
+      <h2>Desteklenen formatlar</h2>
+      <div class="tbl-wrap"><table>
+        <thead><tr><th>Kapsayıcı</th><th>Video</th><th>Ses</th><th>Not</th></tr></thead>
+        <tbody>
+          <tr><td><b>MP4</b> (.mp4, .m4v, .mov)</td><td>H.264 (AVC) veya H.265 (HEVC)</td><td>AAC</td><td>Safari, Edge ve Chrome'un çoğu sürümünde; H.265 için cihazın donanım desteği gerekir.</td></tr>
+          <tr><td><b>WebM</b> (.webm)</td><td>AV1 veya VP9</td><td>Opus</td><td>En küçük dosyalar; AV1 en verimli olanı.</td></tr>
+          <tr><td><b>Animasyonlu WebP / GIF</b></td><td>—</td><td>yok (sessiz)</td><td>Video değil görsel gibi oynar; süre <code>maxMs</code> ile sınırlanır (varsayılan 4 sn).</td></tr>
+        </tbody>
+      </table></div>
+      <div class="callout info"><b>Codec otomatik seçilir</b>Dosya adına <code>av1</code>, <code>vp9</code>, <code>h264</code>, <code>hevc</code> / <code>h265</code> yazarsan tarayıcıya tam o kodeği sorulur. Ya da kaynağı açıkça belirtebilirsin (aşağıda).</div>
+
+      <h2>Adım adım</h2>
+      <ol class="steps">
+        <li>Videonu uygun formatlarda hazırla (aşağıdaki komutlar).</li>
+        <li>Dosyaları <code>assets</code> klasörüne koy.</li>
+        <li>Editörde <b>Kimlik → İNTERAKTİF İNTRO</b> bölümünü aç. <b>Mod</b>'u <i>Video / animasyonlu WebP</i> yap.</li>
+        <li><b>Video kaynakları</b> kutusuna her satıra bir dosya yaz. Tercih sırasına göre yazman gerekmez.</li>
+        <li>İstersen <b>"Video varsa diğer intro ayarlarını kilitle"</b>'yi aç.</li>
+        <li>Kaydet, <code>config.js</code>'i yerine koy, F5.</li>
+      </ol>
+
+      <h2>Kilit: "Video varsa diğer ayarları kilitle"</h2>
+      <p>Bu seçenek açıkken ve oynatılabilir bir video bulunduğunda, <b>tarz, metinler, element gecikmesi ve arka plan açılışı</b> devre dışı kalır: intro yalnızca videoyu oynatır. Ses ve "yenilemede atla" ayarları videoyla birlikte geçerli kalır.</p>
+      <div class="callout warn"><b>Dikkat</b>Hiçbir kaynak oynatılamazsa kilit kendiliğinden devre dışı kalır ve intro bir tarza düşer; site asla açılışsız kalmaz.</div>
+
+      <h2>Örnek ayar</h2>
+      <div class="codewrap"><pre><code>intro: {
+  enabled: true,
+  mode: "video",
+  video: {
+    sources: [
+      { src: "assets/intro-av1.webm",  codec: "av1"  },
+      { src: "assets/intro-hevc.mp4",  codec: "hevc" },
+      { src: "assets/intro-h264.mp4",  codec: "h264" },
+    ],
+    poster: "assets/intro-poster.jpg",
+    maxMs: 12000,        // 0 = video bitene kadar
+    lockOthers: true,    // video varsa diğer intro ayarlarını kilitle
+  },
+  sound: true,
+  skipOnReload: true,
+}</code></pre><button class="copy-btn" type="button">Kopyala</button></div>
+
+      <h2>Dönüştürme komutları (ffmpeg)</h2>
+      <p>Kendi videonu bu komutlarla dönüştürebilirsin (<code>in.mov</code> yerine kaynağını yaz):</p>
+      <div class="codewrap"><pre><code># WebM — AV1 + Opus
+ffmpeg -i in.mov -c:v libsvtav1 -crf 35 -preset 8 -c:a libopus -b:a 96k intro-av1.webm</code></pre><button class="copy-btn" type="button">Kopyala</button></div>
+      <div class="codewrap"><pre><code># MP4 — H.264 + AAC
+ffmpeg -i in.mov -c:v libx264 -crf 23 -preset slow -pix_fmt yuv420p -c:a aac -b:a 128k -movflags +faststart intro-h264.mp4</code></pre><button class="copy-btn" type="button">Kopyala</button></div>
+      <div class="codewrap"><pre><code># MP4 — H.265 + AAC (Apple uyumlu hvc1 etiketi)
+ffmpeg -i in.mov -c:v libx265 -crf 26 -tag:v hvc1 -c:a aac -b:a 128k -movflags +faststart intro-hevc.mp4</code></pre><button class="copy-btn" type="button">Kopyala</button></div>
+      <div class="codewrap"><pre><code># Animasyonlu WebP (sessiz, 24 fps, 1280 px genişlik)
+ffmpeg -i in.mp4 -vf "fps=24,scale=1280:-1" -an -c:v libwebp -q:v 70 -loop 0 intro.webp</code></pre><button class="copy-btn" type="button">Kopyala</button></div>
+
+      <div class="callout tip"><b>Boyut</b>Açılış videoları kısa ve küçük tutulmalı: 3–6 saniye ve birkaç yüz KB ideal. Büyük videolar yavaş yüklenir.</div>
+    </section>
+
+    <!-- ═════════ 11 ═════════ -->
+    <section data-page="yayinlama" id="yayinlama">
+      <div class="eyebrow">11 · Yayın</div>
+      <h1>İnternete yayınla</h1>
+      <p class="lead">GitHub Pages ile ücretsiz. Hesap açıp bir depo oluştur, dosyaları yükle, Pages'i etkinleştir.</p>
+      <ol class="steps">
+        <li>github.com'da hesap aç → <b>New repository</b> → adı <code>bio</code> (Public kalsın) → <b>Create</b>.</li>
+        <li><b>Add file → Upload files</b> → projedeki <b>tüm</b> dosyaları sürükle (index.html, css, js, assets, guide.html) → <b>Commit changes</b>.</li>
+        <li><b>Settings → Pages</b> → Source: <b>"Deploy from a branch"</b> → Branch: <code>main</code> / <code>(root)</code> → <b>Save</b>.</li>
+        <li>1–2 dakika bekle. Adresin: <code>https://KULLANICIADIN.github.io/bio/</code></li>
+      </ol>
+      <div class="callout tip"><b>Güncelleme</b>Depoya gir → dosyayı güncelle (upload) → bir dakika içinde site yenilenir.</div>
+    </section>
+
+    <!-- ═════════ 12 ═════════ -->
+    <section data-page="sss" id="sss">
+      <div class="eyebrow">12 · Yardım</div>
+      <h1>Sık sorulanlar</h1>
+      <div class="card">
+        <h3>Video görünmüyor?</h3>
+        <p>Dosya adı birebir doğru mu, <code>assets</code> içinde mi? Hiçbir kaynak oynatılamıyorsa intro otomatik bir tarza düşer. Tarayıcı konsolunda <code>[intro]</code> ile başlayan mesajlara bak.</p>
+      </div>
+      <div class="card">
+        <h3>Ses çıkarmıyor?</h3>
+        <p>Tarayıcılar sesi ancak bir tıklamadan sonra açar. "CLICK TO ENTER" perdesine tıklamak ses iznini verir. Editörün <b>Ses</b> bölümünden kontrol et.</p>
+      </div>
+      <div class="card">
+        <h3>Kaydettim ama sitede görünmüyor?</h3>
+        <p>İnen <code>config.js</code>'i <code>js</code> klasörüne kopyaladın mı? Bölüm 05'e bak.</p>
+      </div>
+      <div class="card">
+        <h3>Editör açıkken site garip?</h3>
+        <p>Normal; editör geliştirici modudur. Yayınlamadan önce <code>EDIT_MODE = false</code> yap.</p>
+      </div>
+      <div class="card">
+        <h3>Klavye kısayolları</h3>
+        <p><kbd>M</kbd> ses aç/kapa · <kbd>F</kbd> çerçeve değiştir · <kbd>B</kbd> blur aç/kapa · <kbd>T</kbd> zamanı durdur · <kbd>H</kbd> yardım.
+        Bunlar <code>CONFIG.fx.shortcuts</code> açıkken çalışır. Intro'da <kbd>Esc</kbd> atlar. Çok eski bir oyun kodu da var: ↑↑↓↓←→←→BA 🤫</p>
+      </div>
+      <div class="card">
+        <h3>Her şey battı, sıfırlamak istiyorum</h3>
+        <p>Editörde <b>DEF</b> → varsayılan, <b>SIFIR</b> → boş sayfa, <b>V1</b> → Tanya şablonu. Hiçbiri dosyalarını bozmaz; beğenmezsen Kaydet'e basmazsın, biter.</p>
+      </div>
+    </section>
+
+    <nav class="pager" aria-label="Sayfa gezinmesi">
+      <a class="prev" id="pager-prev" href="#/baslangic"></a>
+      <a class="next" id="pager-next" href="#/baslangic"></a>
+    </nav>
+  </main>
+</div>
+
+<script>
+(function () {
+  "use strict";
+  var ORDER = ["baslangic","yerel-calistirma","editor","sifirdan","kaydetme","nereden-degisir","medya",
+               "intro","intro-tarzlari","intro-video","yayinlama","sss"];
+  var TITLES = {}; var sections = Array.prototype.slice.call(document.querySelectorAll("section[data-page]"));
+  sections.forEach(function (s) { TITLES[s.dataset.page] = (s.querySelector("h1") || {}).textContent || s.dataset.page; });
+  /* sayfa id'si ile route eşleşmesi: "intro-video" sayfası id'si "intro-video-page" olabilir; route data-page'den */
+  var $ = function (s) { return document.querySelector(s); };
+  var side = $("#side"), scrim = $("#scrim"), menuBtn = $("#menu-btn");
+
+  function pageFromHash() {
+    var h = (location.hash || "").replace(/^#\/?/, "");
+    return TITLES.hasOwnProperty(h) ? h : "baslangic";
+  }
+
+  function show(page) {
+    sections.forEach(function (s) { s.hidden = s.dataset.page !== page; });
+    document.querySelectorAll(".nav a").forEach(function (a) {
+      if (a.getAttribute("href") === "#/" + page) a.setAttribute("aria-current", "page"); else a.removeAttribute("aria-current");
+    });
+    var i = ORDER.indexOf(page);
+    var prev = ORDER[i - 1], next = ORDER[i + 1];
+    var pp = $("#pager-prev"), pn = $("#pager-next");
+    pp.hidden = !prev; pn.hidden = !next;
+    if (prev) { pp.href = "#/" + prev; pp.innerHTML = "<small>← Önceki</small>" + TITLES[prev]; }
+    if (next) { pn.href = "#/" + next; pn.innerHTML = "<small>Sonraki →</small>" + TITLES[next]; }
+    document.title = TITLES[page] + " · SENKI BIO kılavuz";
+    window.scrollTo({ top: 0, behavior: "auto" });
+    closeMenu();
+  }
+
+  function route() { show(pageFromHash()); }
+  window.addEventListener("hashchange", route);
+
+  /* ── mobil menü ── */
+  function openMenu(o) { side.classList.toggle("open", o); scrim.classList.toggle("open", o); menuBtn.setAttribute("aria-expanded", String(o)); }
+  function closeMenu() { openMenu(false); }
+  menuBtn.addEventListener("click", function () { openMenu(!side.classList.contains("open")); });
+  scrim.addEventListener("click", closeMenu);
+  document.addEventListener("keydown", function (e) { if (e.key === "Escape") closeMenu(); });
+
+  /* ── arama: tüm sayfalar, sonuç bağlantıları ── */
+  var index = sections.map(function (s) {
+    return { page: s.dataset.page, title: TITLES[s.dataset.page], text: (s.textContent || "").replace(/\s+/g, " ").trim() };
+  });
+  var box = $("#guide-search"), out = $("#guide-results");
+  function snippet(text, q) {
+    var at = text.toLowerCase().indexOf(q.toLowerCase());
+    var from = Math.max(0, at - 40);
+    return (from > 0 ? "…" : "") + text.substr(from, 110) + "…";
+  }
+  box.addEventListener("input", function () {
+    var q = box.value.trim();
+    out.innerHTML = "";
+    if (q.length < 2) return;
+    index.forEach(function (d) {
+      if (d.text.toLowerCase().indexOf(q.toLowerCase()) === -1) return;
+      var li = document.createElement("li");
+      var a = document.createElement("a");
+      a.href = "#/" + d.page; a.setAttribute("data-search-hit", ""); a.textContent = d.title;
+      var sm = document.createElement("small"); sm.textContent = snippet(d.text, q);
+      a.appendChild(sm); li.appendChild(a); out.appendChild(li);
+    });
+    if (!out.children.length) { var none = document.createElement("li"); none.textContent = "Sonuç yok"; none.style.color = "var(--muted)"; none.style.padding = "6px 10px"; out.appendChild(none); }
+  });
+  box.addEventListener("keydown", function (e) { if (e.key === "Escape") { box.value = ""; out.innerHTML = ""; } });
+  out.addEventListener("click", function () { box.value = ""; out.innerHTML = ""; closeMenu(); });
+
+  /* ── kopyala düğmeleri ── */
+  document.querySelectorAll(".copy-btn").forEach(function (btn) {
+    btn.addEventListener("click", function () {
+      var code = btn.parentElement.querySelector("pre code") || btn.parentElement.querySelector("pre");
+      var text = code ? code.textContent : "";
+      var done = function () { btn.textContent = "Kopyalandı ✓"; btn.setAttribute("data-state", "done");
+        setTimeout(function () { btn.textContent = "Kopyala"; btn.removeAttribute("data-state"); }, 1500); };
+      var fallback = function () {
+        var t = document.createElement("textarea"); t.value = text; t.style.cssText = "position:fixed;opacity:0";
+        document.body.appendChild(t); t.select(); try { document.execCommand("copy"); } catch (_) {} t.remove(); done();
+      };
+      if (navigator.clipboard && window.isSecureContext) navigator.clipboard.writeText(text).then(done, fallback);
+      else fallback();
+    });
+  });
+
+  /* ── kurulum ilerlemesi (localStorage güvenli) ── */
+  var KEY = "senki-guide:checks";
+  function readChecks() { try { return JSON.parse(localStorage.getItem(KEY) || "{}") || {}; } catch (_) { return {}; } }
+  function writeChecks(o) { try { localStorage.setItem(KEY, JSON.stringify(o)); } catch (_) {} }
+  var boxes = document.querySelectorAll("[data-check]");
+  function paint() {
+    var state = readChecks(), n = 0;
+    boxes.forEach(function (b) { b.checked = !!state[b.dataset.check]; if (b.checked) n++; });
+    var total = boxes.length || 1;
+    $("#prog-fill").style.width = Math.round(n / total * 100) + "%";
+    $("#prog-text").textContent = n + " / " + boxes.length + " adım";
+  }
+  boxes.forEach(function (b) {
+    b.addEventListener("change", function () { var s = readChecks(); s[b.dataset.check] = b.checked; writeChecks(s); paint(); });
+  });
+
+  route();
+  paint();
+})();
+</script>
+</body>
+</html>

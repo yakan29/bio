@@ -1,0 +1,55 @@
+/* ═══ css/intro.css — v5.2 intro tarzları + video/görsel intro ═══
+   style.css'teki .intro-overlay temelinin üstüne eklenir. */
+
+/* ortak: tam ekran tuval */
+.intro-canvas{position:absolute;inset:0;width:100%;height:100%;pointer-events:none}
+
+/* ── video / animasyonlu webp intro ── */
+.intro-overlay.intro-media{background:#000;display:grid;place-items:center;padding:0}
+.intro-media-el{max-width:100%;max-height:100%;width:100%;height:100%;object-fit:contain;background:#000}
+#intro-image.intro-media-el{object-fit:contain}
+
+/* ── Matrix ── */
+.intro-overlay.intro-matrix{background:#000}
+.intro-matrix .intro-canvas{transition:opacity .3s}
+
+/* ── İris (dairesel perde) ── */
+.intro-overlay.intro-iris{background:#050403}
+.intro-iris .intro-body{font-size:clamp(16px,2.4vw,26px);letter-spacing:.12em}
+
+/* ── Daktilo: imleç ── */
+.intro-typewriter .intro-body{font-size:clamp(14px,1.8vw,20px)}
+.intro-typewriter .intro-line:last-child::after{content:"▌";margin-left:2px;color:var(--accent-bright);animation:intro-blink .8s steps(2) infinite}
+@keyframes intro-blink{to{visibility:hidden}}
+
+/* ── Tarama çizgisi ── */
+.intro-overlay.intro-scanline{background:#030303}
+.intro-scan-bar{position:absolute;left:0;right:0;height:2px;background:linear-gradient(90deg,transparent,var(--accent-bright),transparent);box-shadow:0 0 18px 4px rgba(var(--accent-rgb),.55);top:0;pointer-events:none}
+
+/* ── Parçacık toplama ── */
+.intro-overlay.intro-particles{background:#050403}
+
+/* ── Yakınlaşma ── */
+.intro-overlay.intro-zoom{background:transparent;pointer-events:none}
+
+/* ── Neon titreme (öğeye sınıf olarak eklenir) ── */
+.intro-flicker{animation:intro-flicker-kf .7s linear both}
+@keyframes intro-flicker-kf{
+  0%{opacity:0} 8%{opacity:.9} 12%{opacity:.1} 20%{opacity:1} 25%{opacity:.25}
+  32%{opacity:1} 45%{opacity:.6} 52%{opacity:1} 100%{opacity:1}
+}
+
+/* ── Perde ── */
+.intro-overlay.intro-curtains{background:transparent;pointer-events:auto}
+.intro-curtain{position:absolute;top:0;bottom:0;width:50%;background:#050403;transition:transform 1.1s cubic-bezier(.7,0,.2,1);will-change:transform}
+.intro-curtain-l{left:0;border-right:1px solid rgba(var(--accent-rgb),.35)}
+.intro-curtain-r{right:0;border-left:1px solid rgba(var(--accent-rgb),.35)}
+
+/* ── EKG ── */
+.intro-overlay.intro-ekg{background:#020200}
+
+@media (prefers-reduced-motion: reduce){
+  .intro-typewriter .intro-line:last-child::after{animation:none}
+  .intro-flicker{animation:none}
+  .intro-curtain{transition-duration:.01s}
+}

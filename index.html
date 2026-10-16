@@ -1,0 +1,139 @@
+<!DOCTYPE html>
+<html lang="tr">
+
+<head>
+  <meta charset="UTF-8">
+  <script>window.EDIT_MODE = false;</script>
+  <script>window.EDITOR_LEGACY = false;</script>
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>yakan12 | Bio</title>
+  <meta name="description" id="meta-desc" content="yakan12 — bağlantı sayfası. Koyu tema, altın vurgular.">
+  <meta name="theme-color" content="#070604">
+  <link rel="icon" type="image/svg+xml" href="assets/favicon.svg">
+  <meta property="og:title" content="yakan12">
+  <meta property="og:description" content="yakan12 — bağlantı sayfası.">
+  <meta property="og:type" content="profile">
+  <meta property="og:url" content="https://kullaniciadi.github.io/senki-bio/">
+  <meta property="og:image" content="assets/og.jpg">
+  <meta name="twitter:card" content="summary_large_image">
+  <meta name="twitter:title" content="yakan12">
+  <meta name="twitter:description" content="yakan12 — bağlantı sayfası.">
+  <meta name="twitter:image" content="assets/og.jpg">
+  <link rel="stylesheet" href="css/style.css">
+  <link rel="stylesheet" href="css/editor.css">
+  <link rel="stylesheet" href="css/intro.css">
+</head>
+
+<body>
+  <noscript>
+    <p
+      style="position:fixed; inset:0; display:grid; place-items:center; background:#070604; color:#e6b34d; z-index:999; font-family:Georgia,serif; letter-spacing:.1em; text-align:center; padding:20px;">
+      Bu sayfa JavaScript gerektirir.</p>
+  </noscript>
+
+  <div class="bg-wrap" id="bg-wrap" data-mode="video" aria-hidden="true">
+    <div class="bg-layer" id="bg-layer">
+      <div class="bg-fallback"></div>
+      <video class="bg-video" id="bg-video" muted loop autoplay playsinline preload="metadata" poster="assets/bg.jpg">
+        <source src="assets/bg.webm" type='video/webm; codecs="av01.0.08M.08, opus"'>
+        <source src="assets/bg.mp4" type="video/mp4">
+      </video>
+      <canvas id="bg-dust"></canvas>
+      <canvas id="bg-dust-gpu" hidden></canvas>
+    </div>
+  </div>
+  <div class="bg-vignette" aria-hidden="true"></div>
+
+  <canvas id="shader-fx" hidden aria-hidden="true"></canvas>
+
+  <div class="entry-overlay" id="entry-overlay" role="button" tabindex="0"
+    aria-label="Girmek için tıkla — sesi etkinleştirir">
+    <div class="entry-inner">
+      <div class="cube-scene" aria-hidden="true">
+        <div class="cube"><i class="face f"></i><i class="face b"></i><i class="face l"></i><i class="face r"></i><i
+            class="face t"></i><i class="face bo"></i></div>
+        <i class="cube-core"></i>
+      </div>
+      <p class="entry-hint">CLICK&nbsp;TO&nbsp;ENTER</p>
+      <p class="entry-note">ses açık önerilir</p>
+    </div>
+  </div>
+
+  <main class="scene" id="scene">
+    <div class="fit-wrap" id="fit-wrap">
+      <div class="card-scene" id="card-scene">
+        <section class="profile-card" id="profile-card">
+          <i class="corner tl"></i><i class="corner tr"></i><i class="corner bl"></i><i class="corner br"></i>
+          <p class="division stag stag-1" id="division"></p>
+
+          <div class="avatar-frame stag stag-2" id="avatar-frame" data-mode="ring" data-anim="none">
+            <div class="av-frame-slot" id="av-frame-slot" aria-hidden="true"></div>
+            <div class="av-media" id="av-media">
+              <div class="avatar-fallback" aria-hidden="true">
+                <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.4" stroke-linejoin="round">
+                  <path d="M12 3l7.5 4.3v9.4L12 21l-7.5-4.3V7.3z" />
+                  <path d="M12 3v9m0 0l7.5-4.7M12 12L4.5 7.3M12 21v-9" />
+                </svg>
+              </div>
+            </div>
+            <div class="av-frame-front" id="av-frame-front" aria-hidden="true"></div>
+            <i class="av-glow" aria-hidden="true"></i>
+            <div class="av-frame-overlay" id="av-frame-overlay" aria-hidden="true"></div>
+          </div>
+
+          <div class="name-row stag stag-3">
+            <h1 class="username" id="username"></h1>
+            <span class="badges" id="badges"></span>
+          </div>
+
+          <div class="chips stag stag-3" id="chips"></div>
+
+          <div class="lanyard" id="lanyard" hidden>
+            <span class="lan-row"><i class="lan-dot" id="lan-dot"></i><span id="lan-status">—</span></span>
+            <span class="lan-spotify" id="lan-spotify" hidden></span>
+          </div>
+
+          <div class="separator stag stag-4"></div>
+          <p class="bio stag stag-4"><span id="bio-text"></span><span class="bio-cursor" aria-hidden="true"></span></p>
+
+          <div class="tabs stag stag-5" id="tabs-wrap">
+            <div class="tabs-bar" id="tabs-bar" hidden></div>
+            <div class="tab-body" id="tab-body"></div>
+          </div>
+        </section>
+      </div>
+    </div>
+  </main>
+
+  <div class="zones-debug" id="zones-debug" hidden></div>
+  <div class="dbg" id="dbg" hidden></div>
+  <div class="dock" id="dock" aria-hidden="true">
+    <div class="dock-inner" id="dock-inner"></div>
+  </div>
+
+  <div class="player" id="player">
+    <button class="player-btn" id="player-toggle" aria-label="Sesi aç / kapat" aria-pressed="false"><svg
+        viewBox="0 0 24 24" fill="currentColor">
+        <path d="M8 5.5v13l11-6.5z" />
+      </svg></button>
+    <div class="eq" aria-hidden="true"><i></i><i></i><i></i><i></i></div>
+    <input type="range" id="player-vol" min="0" max="1" step="0.01" value="0.35" aria-label="Ses seviyesi">
+  </div>
+
+  <p class="attribution">bg: Youjo Senki &copy; KADOKAWA</p>
+  <span class="stats-line" id="stats-line" hidden></span>
+  <div class="toasts" id="toasts" aria-live="polite"></div>
+  <canvas id="sparks" aria-hidden="true"></canvas>
+  <div class="cursor-dot" id="cursor-dot" aria-hidden="true"></div>
+  <div class="cursor-ring" id="cursor-ring" aria-hidden="true"></div>
+
+  <!-- sıra: config → frames → intro → editor → main -->
+  <script src="js/config.js" defer></script>
+  <script src="js/frames.js" defer></script>
+  <script src="js/intro-core.js" defer></script>
+  <script src="js/intro.js" defer></script>
+  <script src="js/editor.js" defer></script>
+  <script src="js/main.js" defer></script>
+</body>
+
+</html>

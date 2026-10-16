@@ -1,0 +1,9 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 64 64">
+  <!-- İzometrik altın küp (tema nişanı) -->
+  <rect width="64" height="64" rx="14" fill="#0c0a07"/>
+  <g fill="none" stroke="#e6b34d" stroke-width="2.6" stroke-linejoin="round" stroke-linecap="round">
+    <path d="M32 10 L50 20 V40 L32 50 L14 40 V20 Z"/>
+    <path d="M14 20 L32 30 L50 20 M32 30 V50" opacity=".85"/>
+  </g>
+  <circle cx="32" cy="30" r="2.6" fill="#f6d68b"/>
+</svg>

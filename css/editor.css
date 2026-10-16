@@ -1,0 +1,192 @@
+/* ═══ SENKI BIO v4.3 — EDİTÖR stilleri (kendi hover/click SESİ yok) ═══ */
+.ed-badge{position:fixed;top:14px;right:14px;z-index:310;padding:6px 12px;border-radius:999px;font-family:Georgia,serif;font-size:10px;letter-spacing:.22em;text-indent:.22em;color:var(--accent);background:rgba(12,10,7,.8);border:1px solid rgba(var(--accent-rgb),.55);backdrop-filter:blur(8px);cursor:pointer;user-select:none;animation:edp 2.6s ease-in-out infinite}
+@keyframes edp{0%,100%{box-shadow:0 0 0 0 rgba(var(--accent-rgb),.25)}50%{box-shadow:0 0 14px 1px rgba(var(--accent-rgb),.35)}}
+.ed-drawer{position:fixed;top:0;right:0;bottom:0;z-index:300;width:min(380px,100vw);display:flex;flex-direction:column;background:rgba(13,11,8,.94);backdrop-filter:blur(18px);border-left:1px solid rgba(var(--accent-rgb),.28);box-shadow:-20px 0 60px rgba(0,0,0,.55);transform:translateX(102%);transition:transform .38s cubic-bezier(.22,1,.36,1);font-family:Georgia,serif;color:#d8cbb0}
+.ed-drawer.open{transform:none}
+.ed-drawer,.ed-drawer *{cursor:auto!important}
+.ed-head{display:flex;align-items:center;justify-content:space-between;padding:14px 16px;border-bottom:1px solid rgba(var(--accent-rgb),.2)}
+.ed-head span{font-size:11px;letter-spacing:.3em;text-indent:.3em;color:var(--accent)}
+.ed-icon-btn{display:grid;place-items:center;width:26px;height:26px;border-radius:7px;color:#bfae8a;border:1px solid rgba(255,255,255,.12)}
+.ed-icon-btn:hover{color:var(--accent);border-color:rgba(var(--accent-rgb),.5)}
+.ed-icon-btn svg{width:12px;height:12px}
+.ed-body{flex:1;overflow-y:auto;padding:6px 16px 12px;scrollbar-width:thin}
+.ed-body section{padding:14px 0;border-bottom:1px solid rgba(255,255,255,.06)}
+.ed-body h3{font-size:10px;font-weight:normal;letter-spacing:.3em;text-indent:.3em;color:var(--accent);text-transform:uppercase;margin-bottom:12px}
+.ed-body label{display:flex;flex-direction:column;gap:5px;margin-bottom:10px;font-size:11px;color:#bfae8a}
+.ed-body input[type="text"],.ed-body input[type="number"],.ed-body textarea,.ed-body select{width:100%;padding:7px 10px;border-radius:8px;background:rgba(255,255,255,.05);border:1px solid rgba(255,255,255,.12);color:#ece3d0;font:13px/1.4 Georgia,serif}
+.ed-body textarea{resize:vertical;min-height:54px}
+.ed-body input:focus,.ed-body textarea:focus,.ed-body select:focus{outline:none;border-color:rgba(var(--accent-rgb),.6)}
+.ed-body select option{background:#17130d}
+.ed-inline{display:flex;align-items:center;gap:8px}
+.ed-inline input[type="color"]{width:42px;height:28px;padding:2px;border-radius:6px;border:1px solid rgba(var(--accent-rgb),.4);background:none}
+.ed-inline code{font:12px monospace;color:var(--accent)}
+.ed-grid2{display:grid;grid-template-columns:1fr 1fr;gap:8px}
+.ed-body input[type="range"]{-webkit-appearance:none;appearance:none;width:100%;height:16px;background:transparent}
+.ed-body input[type="range"]::-webkit-slider-runnable-track{height:3px;border-radius:2px;background:rgba(255,255,255,.14)}
+.ed-body input[type="range"]::-webkit-slider-thumb{-webkit-appearance:none;width:12px;height:12px;margin-top:-4.5px;border-radius:50%;background:var(--accent);border:none}
+.ed-body input[type="range"]::-moz-range-track{height:3px;border-radius:2px;background:rgba(255,255,255,.14)}
+.ed-body input[type="range"]::-moz-range-thumb{width:12px;height:12px;border-radius:50%;background:var(--accent);border:none}
+.ed-lt{display:flex;align-items:baseline;justify-content:space-between}
+.ed-lt b{font-weight:normal;font-size:11px;color:var(--accent);font-family:monospace}
+.ed-switch{display:flex;align-items:center;gap:10px;margin-bottom:10px}
+.ed-switch input{display:none}
+.ed-switch i{position:relative;width:34px;height:19px;flex:none;border-radius:999px;background:rgba(255,255,255,.12);border:1px solid rgba(var(--accent-rgb),.25);transition:.25s}
+.ed-switch i::after{content:"";position:absolute;left:2px;top:2px;width:13px;height:13px;border-radius:50%;background:#8f8064;transition:.25s}
+.ed-switch input:checked+i{background:rgba(var(--accent-rgb),.28);border-color:rgba(var(--accent-rgb),.6)}
+.ed-switch input:checked+i::after{left:17px;background:var(--accent)}
+.ed-chk{display:flex;align-items:center;gap:7px;font-size:11px;color:#bfae8a;margin:2px 0 6px}
+.ed-chk input{accent-color:var(--accent);width:13px;height:13px}
+.ed-hint{font-size:10.5px;line-height:1.6;color:#8f8266}
+.ed-hint code{color:var(--accent)}
+.fr-gal{display:grid;grid-template-columns:repeat(4,1fr);gap:6px}
+.fr-gal button{display:flex;flex-direction:column;align-items:center;gap:5px;padding:7px 2px;border-radius:9px;border:1px solid rgba(255,255,255,.1);color:#bfae8a;font-size:8.5px;letter-spacing:.04em;transition:.2s}
+.fr-gal button:hover{color:var(--accent);border-color:rgba(var(--accent-rgb),.5)}
+.fr-gal button.on{color:var(--accent);border-color:rgba(var(--accent-rgb),.8);background:rgba(var(--accent-rgb),.08)}
+.fr-gal .frp{width:26px;height:26px;border-radius:50%;border:1.5px solid rgba(var(--accent-rgb),.7);position:relative}
+.fr-gal .frp::after{content:"";position:absolute;inset:4px;border-radius:50%;background:radial-gradient(circle at 35% 30%,#2a2113,#141009)}
+.fr-gal button.on .frp{animation:edp 1.6s linear infinite}
+.fr-gal .frp.orr::before{content:"";position:absolute;inset:-4px;border:1px solid rgba(var(--accent-rgb),.55);border-radius:50%;transform:rotate(-20deg) scaleY(.55)}
+/* ikon seçici (rozetler) */
+.ed-icons{display:grid;grid-template-columns:repeat(7,1fr);gap:4px;padding:6px;border:1px solid rgba(255,255,255,.08);border-radius:8px;margin-bottom:6px}
+.ed-icons button{display:grid;place-items:center;height:28px;border-radius:6px;color:#bfae8a;border:1px solid transparent;transition:.15s}
+.ed-icons button:hover{color:var(--accent);border-color:rgba(var(--accent-rgb),.5);background:rgba(var(--accent-rgb),.06)}
+.ed-icons button svg{width:15px;height:15px}
+.ed-icons button span{font-size:13px;font-family:system-ui}
+.ed-row{display:grid;gap:6px;padding:8px;margin-bottom:8px;border:1px solid rgba(255,255,255,.07);border-radius:10px;background:rgba(255,255,255,.03)}
+.ed-r1{display:grid;grid-template-columns:52px 1fr auto;gap:6px;align-items:center}
+.ed-r2{display:grid;grid-template-columns:110px 1fr;gap:6px}
+.ed-row input,.ed-row select{padding:6px 8px;font-size:12.5px}
+.ed-row input[type="color"]{height:30px;padding:2px;border:1px solid rgba(var(--accent-rgb),.4);background:none;border-radius:6px}
+.ed-acts{display:flex;gap:4px}
+.ed-acts button{display:grid;place-items:center;width:24px;height:24px;border-radius:6px;color:#bfae8a;border:1px solid rgba(255,255,255,.1)}
+.ed-acts button:hover:not(:disabled){color:var(--accent);border-color:rgba(var(--accent-rgb),.5)}
+.ed-acts button:disabled{opacity:.3}
+.ed-acts button.danger:hover{color:#e07a5f}
+.ed-acts svg{width:11px;height:11px}
+.ed-actgrid{display:grid;grid-template-columns:repeat(3,1fr);gap:6px}
+.ed-actgrid button{padding:7px 4px;border-radius:8px;font-size:10px;border:1px solid rgba(var(--accent-rgb),.25);color:#d8cbb0}
+.ed-actgrid button:hover{color:var(--accent);border-color:rgba(var(--accent-rgb),.6)}
+.ed-foot{padding:12px 16px;display:flex;flex-direction:column;gap:8px;border-top:1px solid rgba(var(--accent-rgb),.2);background:rgba(0,0,0,.25)}
+.ed-btn{padding:10px 12px;border-radius:9px;font-family:Georgia,serif;font-size:12.5px;letter-spacing:.08em;border:1px solid rgba(var(--accent-rgb),.45);color:var(--accent);background:rgba(var(--accent-rgb),.06)}
+.ed-btn:hover{background:rgba(var(--accent-rgb),.14)}
+.ed-btn.primary{background:var(--accent);color:#171208;font-weight:bold;border-color:var(--accent)}
+.ed-btn.primary:hover{background:var(--accent-bright)}
+.ed-row2{display:grid;grid-template-columns:1fr 1fr;gap:8px}
+@media (max-width:640px){.ed-badge{top:auto;bottom:60px;right:12px}}
+@media (prefers-reduced-motion:reduce){.ed-badge,.ed-drawer{animation:none!important;transition-duration:.01ms!important}}
+/* ═══ v4.4 ekleri — Menüler bölümü ═══ */
+.ed-split{display:grid;grid-template-columns:1fr 1.35fr;gap:10px}
+.ed-mlist{display:flex;flex-direction:column;gap:4px}
+.ed-mlist button{padding:7px 9px;border-radius:8px;border:1px solid rgba(255,255,255,.1);color:#bfae8a;font-size:12px;text-align:left;transition:.15s}
+.ed-mlist button:hover{color:var(--accent);border-color:rgba(var(--accent-rgb),.5)}
+.ed-mlist button.on{color:var(--accent);border-color:rgba(var(--accent-rgb),.8);background:rgba(var(--accent-rgb),.08)}
+.ed-mini{padding:5px 9px;border-radius:7px;border:1px solid rgba(var(--accent-rgb),.35);color:var(--accent);font-size:11px}
+.ed-mini:hover{background:rgba(var(--accent-rgb),.12)}
+
+/* ═══ v4.5 — Shader FX editör bölümü ═══ */
+.ed-sfx{display:grid;grid-template-columns:1fr 1.15fr;gap:10px}
+.ed-sfx-list{display:flex;flex-direction:column;gap:4px}
+.ed-sfx-row{display:grid;grid-template-columns:1fr auto;gap:6px;align-items:center;padding:5px 7px;border:1px solid rgba(255,255,255,.1);border-radius:8px}
+.ed-sfx-row span{font-size:12px;color:#bfae8a}
+.ed-sfx-row.on{border-color:rgba(var(--accent-rgb),.8);background:rgba(var(--accent-rgb),.08)}
+.ed-sfx-row.on span{color:var(--accent)}
+.ed-sfx-mini{padding:4px 8px;border-radius:6px;border:1px solid rgba(var(--accent-rgb),.4);color:var(--accent);font-size:10px}
+.ed-sfx-mini:hover{background:rgba(var(--accent-rgb),.14)}
+.ed-sfx-custom{display:flex;flex-direction:column;gap:6px}
+.ed-sfx-custom textarea{font:11px/1.5 monospace;color:#d8cbb0;background:rgba(0,0,0,.35);min-height:150px}
+.ed-sfx-note{font-size:10px;color:#8f8266;line-height:1.5}
+.ed-sfx-note code{color:var(--accent)}
+
+/* ═══════════════════════════════════════════════════════════════
+   SENKI BIO v4.6 — MODERN EDİTÖR (varsayılan; EDITOR_LEGACY=true →
+   v4.5 .ed-drawer kodu devreye girer, bu blok pasif kalır). ═══ */
+.ed2{position:fixed;top:0;right:0;bottom:0;z-index:300;width:min(440px,100vw);display:flex;flex-direction:column;background:rgba(12,10,7,.96);backdrop-filter:blur(20px) saturate(140%);-webkit-backdrop-filter:blur(20px) saturate(140%);border-left:1px solid rgba(var(--accent-rgb),.3);box-shadow:-24px 0 70px rgba(0,0,0,.6);transform:translateX(103%);transition:transform .34s cubic-bezier(.22,1,.36,1);font-family:Georgia,serif;color:#d8cbb0}
+.ed2.open{transform:none}
+.ed2 *{cursor:auto!important}
+/* üst bar */
+.ed2-top{display:flex;align-items:center;gap:8px;padding:12px 14px;border-bottom:1px solid rgba(var(--accent-rgb),.22)}
+.ed2-top .ed2-logo{font-size:10px;letter-spacing:.3em;text-indent:.3em;color:var(--accent);flex:1}
+.ed2-top input{flex:1.4;max-width:170px;padding:6px 10px;border-radius:8px;background:rgba(255,255,255,.05);border:1px solid rgba(255,255,255,.12);color:#ece3d0;font:12px Georgia,serif}
+.ed2-top input:focus{outline:none;border-color:rgba(var(--accent-rgb),.6)}
+.ed2-tbtn{padding:6px 10px;border-radius:8px;border:1px solid rgba(var(--accent-rgb),.4);color:var(--accent);font-size:11px;letter-spacing:.06em;background:rgba(var(--accent-rgb),.06);white-space:nowrap}
+.ed2-tbtn:hover{background:rgba(var(--accent-rgb),.15)}
+.ed2-tbtn.primary{background:var(--accent);color:#171208;font-weight:bold}
+.ed2-tbtn.primary:hover{background:var(--accent-bright)}
+.ed2-tbtn.dirty{border-color:#e07a5f;color:#e07a5f}   /* değişiklik rozeti */
+/* gövde: ikon ray + akordeon */
+.ed2-mid{flex:1;display:grid;grid-template-columns:52px 1fr;min-height:0}
+.ed2-rail{display:flex;flex-direction:column;gap:4px;padding:10px 6px;border-right:1px solid rgba(255,255,255,.07);overflow-y:auto;scrollbar-width:none}
+.ed2-rail::-webkit-scrollbar{display:none}
+.ed2-rail button{display:grid;place-items:center;width:40px;height:40px;border-radius:10px;color:#8f8266;border:1px solid transparent;position:relative}
+.ed2-rail button:hover{color:var(--accent)}
+.ed2-rail button.on{color:var(--accent);border-color:rgba(var(--accent-rgb),.5);background:rgba(var(--accent-rgb),.1)}
+.ed2-rail button svg{width:17px;height:17px}
+.ed2-rail button .dot{position:absolute;top:4px;right:4px;width:6px;height:6px;border-radius:50%;background:#e07a5f;display:none}
+.ed2-rail button.dirty .dot{display:block}
+.ed2-acc{overflow-y:auto;padding:8px 14px 20px;scrollbar-width:thin}
+.ed2-sec{border:1px solid rgba(255,255,255,.07);border-radius:12px;margin-bottom:8px;background:rgba(255,255,255,.02);overflow:hidden}
+.ed2-sec>button{width:100%;display:flex;align-items:center;justify-content:space-between;padding:11px 12px;font-size:11px;letter-spacing:.22em;text-indent:.22em;text-transform:uppercase;color:var(--accent);background:none}
+.ed2-sec>button i{font-style:normal;transition:transform .25s;color:#8f8266}
+.ed2-sec.open>button i{transform:rotate(180deg)}
+.ed2-body{display:none;padding:4px 12px 14px}
+.ed2-sec.open .ed2-body{display:block}
+/* editör içi form öğeleri — legacy .ed-* sınıflarını yeniden kullanır;
+   yalnız modern kabuk farklı. Ek: katman rozetleri */
+.ed2 .fr-gal .frp-badges{display:flex;gap:2px;margin-top:2px}
+.ed2 .frp-b{font:8px/1 monospace;color:#8f8266;border:1px solid rgba(255,255,255,.15);border-radius:3px;padding:1px 3px}
+.ed2 .frp-b.f{color:#8fd49a;border-color:rgba(143,212,154,.4)}
+.ed2 .frp-b.o{color:#d4a48f;border-color:rgba(212,164,143,.4)}
+/* ses efekti alanı (zone sound) */
+.ed2 .ed-sfx-row-note{font-size:10px;color:#8f8266;line-height:1.5}
+@media (max-width:640px){
+  .ed2{width:100vw}
+  .ed2-top input{max-width:110px}
+}
+@media (prefers-reduced-motion:reduce){.ed2{transition-duration:.01ms!important}}
+
+/* ═══════════════════════════════════════════════════════════════
+   SENKI BIO v4.6 — MODERN EDİTÖR (varsayılan; EDITOR_LEGACY=true →
+   v4.5 .ed-drawer kodu devreye girer, bu blok pasif kalır). ═══ */
+.ed2{position:fixed;top:0;right:0;bottom:0;z-index:300;width:min(440px,100vw);display:flex;flex-direction:column;background:rgba(12,10,7,.96);backdrop-filter:blur(20px) saturate(140%);-webkit-backdrop-filter:blur(20px) saturate(140%);border-left:1px solid rgba(var(--accent-rgb),.3);box-shadow:-24px 0 70px rgba(0,0,0,.6);transform:translateX(103%);transition:transform .34s cubic-bezier(.22,1,.36,1);font-family:Georgia,serif;color:#d8cbb0}
+.ed2.open{transform:none}
+.ed2 *{cursor:auto!important}
+/* üst bar */
+.ed2-top{display:flex;align-items:center;gap:8px;padding:12px 14px;border-bottom:1px solid rgba(var(--accent-rgb),.22)}
+.ed2-top .ed2-logo{font-size:10px;letter-spacing:.3em;text-indent:.3em;color:var(--accent);flex:1}
+.ed2-top input{flex:1.4;max-width:170px;padding:6px 10px;border-radius:8px;background:rgba(255,255,255,.05);border:1px solid rgba(255,255,255,.12);color:#ece3d0;font:12px Georgia,serif}
+.ed2-top input:focus{outline:none;border-color:rgba(var(--accent-rgb),.6)}
+.ed2-tbtn{padding:6px 10px;border-radius:8px;border:1px solid rgba(var(--accent-rgb),.4);color:var(--accent);font-size:11px;letter-spacing:.06em;background:rgba(var(--accent-rgb),.06);white-space:nowrap}
+.ed2-tbtn:hover{background:rgba(var(--accent-rgb),.15)}
+.ed2-tbtn.primary{background:var(--accent);color:#171208;font-weight:bold}
+.ed2-tbtn.primary:hover{background:var(--accent-bright)}
+.ed2-tbtn.dirty{border-color:#e07a5f;color:#e07a5f}   /* değişiklik rozeti */
+/* gövde: ikon ray + akordeon */
+.ed2-mid{flex:1;display:grid;grid-template-columns:52px 1fr;min-height:0}
+.ed2-rail{display:flex;flex-direction:column;gap:4px;padding:10px 6px;border-right:1px solid rgba(255,255,255,.07);overflow-y:auto;scrollbar-width:none}
+.ed2-rail::-webkit-scrollbar{display:none}
+.ed2-rail button{display:grid;place-items:center;width:40px;height:40px;border-radius:10px;color:#8f8266;border:1px solid transparent;position:relative}
+.ed2-rail button:hover{color:var(--accent)}
+.ed2-rail button.on{color:var(--accent);border-color:rgba(var(--accent-rgb),.5);background:rgba(var(--accent-rgb),.1)}
+.ed2-rail button svg{width:17px;height:17px}
+.ed2-rail button .dot{position:absolute;top:4px;right:4px;width:6px;height:6px;border-radius:50%;background:#e07a5f;display:none}
+.ed2-rail button.dirty .dot{display:block}
+.ed2-acc{overflow-y:auto;padding:8px 14px 20px;scrollbar-width:thin}
+.ed2-sec{border:1px solid rgba(255,255,255,.07);border-radius:12px;margin-bottom:8px;background:rgba(255,255,255,.02);overflow:hidden}
+.ed2-sec>button{width:100%;display:flex;align-items:center;justify-content:space-between;padding:11px 12px;font-size:11px;letter-spacing:.22em;text-indent:.22em;text-transform:uppercase;color:var(--accent);background:none}
+.ed2-sec>button i{font-style:normal;transition:transform .25s;color:#8f8266}
+.ed2-sec.open>button i{transform:rotate(180deg)}
+.ed2-body{display:none;padding:4px 12px 14px}
+.ed2-sec.open .ed2-body{display:block}
+/* editör içi form öğeleri — legacy .ed-* sınıflarını yeniden kullanır;
+   yalnız modern kabuk farklı. Ek: katman rozetleri */
+.ed2 .fr-gal .frp-badges{display:flex;gap:2px;margin-top:2px}
+.ed2 .frp-b{font:8px/1 monospace;color:#8f8266;border:1px solid rgba(255,255,255,.15);border-radius:3px;padding:1px 3px}
+.ed2 .frp-b.f{color:#8fd49a;border-color:rgba(143,212,154,.4)}
+.ed2 .frp-b.o{color:#d4a48f;border-color:rgba(212,164,143,.4)}
+/* ses efekti alanı (zone sound) */
+.ed2 .ed-sfx-row-note{font-size:10px;color:#8f8266;line-height:1.5}
+@media (max-width:640px){
+  .ed2{width:100vw}
+  .ed2-top input{max-width:110px}
+}
+@media (prefers-reduced-motion:reduce){.ed2{transition-duration:.01ms!important}}
